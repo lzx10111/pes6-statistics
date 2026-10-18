@@ -1,0 +1,13 @@
+{
+    "runtime.version": "LuaJIT",
+    "format.defaultConfig": {
+        "indent_style": "space",
+        "indent_size": "4"
+    },
+    "workspace.library": [],
+    "diagnostics.disable": [],
+    "diagnostics.globals": [
+        "readShortInteger",
+        "frmConfig"
+    ]
+}
