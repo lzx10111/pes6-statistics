@@ -6,16 +6,17 @@ CardRegistration.__index = CardRegistration
 
 setmetatable(CardRegistration, { __index = Data })
 
-function CardRegistration:new(o)
-    o = o or {}
-    setmetatable(o, self)
+CardRegistration.home = Address:build(TeamCardList, "010D07C0", { -2 }, { 1 })
+CardRegistration.away = Address:build(TeamCardList, "010D0824", { -101 }, { 1 })
 
-    o.home = Address:build(TeamCardList, "010D07BE")
-    o.away = Address:build(TeamCardList, "010D07BE")
+function CardRegistration:setData()
+    if self.home then
+        self.home:setData()
+    end
 
-    o:updateData()
-
-    return o
+    if self.away then
+        self.away:setData()
+    end
 end
 
 function CardRegistration:getSimpleName()

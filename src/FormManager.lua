@@ -366,6 +366,10 @@ function FormManager:onSavePressed()
     if self.components.edtDevPath then
         _G.DEV_PATH = self.components.edtDevPath.Text
     end
+
+    local gameDataInstance = _G.Classes.GameData
+    gameDataInstance:updateData()
+    print(gameDataInstance:toJson(true))
 end
 
 return FormManager

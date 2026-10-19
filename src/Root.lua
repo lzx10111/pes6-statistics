@@ -55,7 +55,7 @@ end
 
 function Root:readByTypeInteger(typeValue, address)
     if typeValue == 1 then
-        return readShortInteger(address)
+        return readByte(address)
     end
     if typeValue == 2 then
         return readSmallInteger(address)

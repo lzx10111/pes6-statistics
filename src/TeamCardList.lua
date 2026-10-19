@@ -20,12 +20,16 @@ function TeamCardList:getSimpleName()
     return "TeamCardList"
 end
 
+function TeamCardList:ignoredFields()
+    return {"address"}
+end
+
 function TeamCardList:getTotalCards()
-    return readShortInteger(self.address.address)
+    return self.address:readByTypeIntegerWithIndex(1)
 end
 
 function TeamCardList:getCards()
-    return self:getDoubleArrayFromAddress(self.address:AddValueToAddress(2), self:getTotalCards(), 4, 1, 3)
+    return self:getDoubleArrayFromAddress(self.address.address, self:getTotalCards(), 4, 1, 3)
 end
 
 return TeamCardList
