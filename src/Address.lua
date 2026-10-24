@@ -55,7 +55,7 @@ function Address:AddOffsetToAddress(value)
     return Address.add(self.address, offset)
 end
 
-function Address:readByTypeIntegerWithIndex(index)
+function Address:readFieldByIndex(index)
     local typeValue = self.typeValue[index]
     local address = self:AddOffsetToAddress(index)
     if typeValue == nil or address == nil then return nil end

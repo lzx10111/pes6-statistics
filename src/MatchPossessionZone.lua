@@ -24,7 +24,7 @@ function MatchPossessionZone:ignoredFields()
 end
 
 function MatchPossessionZone:getNumber()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 return MatchPossessionZone

@@ -104,6 +104,9 @@ end
 
 function MatchStateReader:updatePhase()
     local isOutOfMatch = (self.inMatch == 0 and self.periodIndicator == 0)
+    local lastPhase = (self.phase == MatchStateReader.Phases.SECOND_HALF_END or
+                       self.phase == MatchStateReader.Phases.EXTRA_TIME_SECOND_HALF_END or
+                       self.phase == MatchStateReader.Phases.PENALTY_SHOOTOUT_END)
 
     if isOutOfMatch then
         if self.phase ~= MatchStateReader.Phases.MATCH_START then
@@ -112,7 +115,7 @@ function MatchStateReader:updatePhase()
         return
     end
 
-    if self.fullTime == 1 then
+    if self.fullTime == 1 and lastPhase then
         if self.phase == MatchStateReader.Phases.SECOND_HALF_END then
             Console.log("[MATCH] Full-time. Match ended in regular time.")
         elseif self.phase == MatchStateReader.Phases.EXTRA_TIME_SECOND_HALF_END then

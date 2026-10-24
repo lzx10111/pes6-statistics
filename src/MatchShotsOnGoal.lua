@@ -30,31 +30,31 @@ function MatchShotsOnGoal:ignoredFields()
 end
 
 function MatchShotsOnGoal:getShots()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function MatchShotsOnGoal:getShotsOnGoal()
-  return self.address:readByTypeIntegerWithIndex(2)
+    return self.address:readFieldByIndex(2)
 end
 
 function MatchShotsOnGoal:getGoalkeeperSaves()
-    return self.address:readByTypeIntegerWithIndex(3)
+    return self.address:readFieldByIndex(3)
 end
 
 function MatchShotsOnGoal:getInTheArea()
-    return self.address:readByTypeIntegerWithIndex(4)
+    return self.address:readFieldByIndex(4)
 end
 
 function MatchShotsOnGoal:getHeader()
-    return self.address:readByTypeIntegerWithIndex(5)
+    return self.address:readFieldByIndex(5)
 end
 
 function MatchShotsOnGoal:getRightFoot()
-    return self.address:readByTypeIntegerWithIndex(6)
+    return self.address:readFieldByIndex(6)
 end
 
 function MatchShotsOnGoal:getLeftFoot()
-    return self.address:readByTypeIntegerWithIndex(7)
+    return self.address:readFieldByIndex(7)
 end
 
 return MatchShotsOnGoal

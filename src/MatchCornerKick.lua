@@ -26,15 +26,15 @@ function MatchCornerKick:ignoredFields()
 end
 
 function MatchCornerKick:getCornerKickTotal()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function MatchCornerKick:getCornerKickLeft()
-    return self.address:readByTypeIntegerWithIndex(2)
+    return self.address:readFieldByIndex(2)
 end
 
 function MatchCornerKick:getCornerKickRight()
-    return self.address:readByTypeIntegerWithIndex(3)
+    return self.address:readFieldByIndex(3)
 end
 
 return MatchCornerKick

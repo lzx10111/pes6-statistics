@@ -28,23 +28,23 @@ function MatchScoreBoard:ignoredFields()
 end
 
 function MatchScoreBoard:getGoals()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function MatchScoreBoard:getTotalgoals()
-    return self.address:readByTypeIntegerWithIndex(2)
+    return self.address:readFieldByIndex(2)
 end
 
 function MatchScoreBoard:getPenalties()
-    return self.address:readByTypeIntegerWithIndex(3)
+    return self.address:readFieldByIndex(3)
 end
 
 function MatchScoreBoard:getFoulKick()
-    return self.address:readByTypeIntegerWithIndex(4)
+    return self.address:readFieldByIndex(4)
 end
 
 function MatchScoreBoard:getAssists()
-    return self.address:readByTypeIntegerWithIndex(5)
+    return self.address:readFieldByIndex(5)
 end
 
 return MatchScoreBoard

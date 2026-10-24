@@ -27,7 +27,7 @@ function TeamGoalscorersList:ignoredFields()
 end
 
 function TeamGoalscorersList:getScorersCount()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function TeamGoalscorersList:getPlayers()

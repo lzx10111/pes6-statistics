@@ -25,11 +25,11 @@ function MatchDribbling:ignoredFields()
 end
 
 function MatchDribbling:getNumber()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function MatchDribbling:getDistanceTraveled()
-    return self.address:readByTypeIntegerWithIndex(2)
+    return self.address:readFieldByIndex(2)
 end
 
 return MatchDribbling

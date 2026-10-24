@@ -29,27 +29,27 @@ function MatchFouls:ignoredFields()
 end
 
 function MatchFouls:getFouls()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function MatchFouls:getDirectFouls()
-    return self.address:readByTypeIntegerWithIndex(2)
+    return self.address:readFieldByIndex(2)
 end
 
 function MatchFouls:getIndirectFouls()
-    return self.address:readByTypeIntegerWithIndex(3)
+    return self.address:readFieldByIndex(3)
 end
 
 function MatchFouls:getOffside()
-    return self.address:readByTypeIntegerWithIndex(4)
+    return self.address:readFieldByIndex(4)
 end
 
 function MatchFouls:getYellowCards()
-    return self.address:readByTypeIntegerWithIndex(5)
+    return self.address:readFieldByIndex(5)
 end
 
 function MatchFouls:getRedCards()
-    return self.address:readByTypeIntegerWithIndex(6)
+    return self.address:readFieldByIndex(6)
 end
 
 return MatchFouls

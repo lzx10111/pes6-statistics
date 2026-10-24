@@ -26,15 +26,15 @@ function MatchPass:ignoredFields()
 end
 
 function MatchPass:getPasses()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function MatchPass:getCrossPasses()
-    return self.address:readByTypeIntegerWithIndex(2)
+    return self.address:readFieldByIndex(2)
 end
 
 function MatchPass:getSuccesses()
-    return self.address:readByTypeIntegerWithIndex(3)
+    return self.address:readFieldByIndex(3)
 end
 
 return MatchPass

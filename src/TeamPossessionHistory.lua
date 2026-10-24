@@ -20,34 +20,20 @@ function TeamPossessionHistory:getSimpleName()
     return "TeamPossessionHistory"
 end
 
+function TeamPossessionHistory:ignoredFields()
+    return {"address", "side"}
+end
+
 function TeamPossessionHistory:getTotalPercentage()
-    local array = self.percentages
-    if not array or #array == 0 then
+    local localPercentage = readByte("pes6.exe+CD04BA") or 0
+
+    if self.side == "home" then
+        return localPercentage
+    elseif self.side == "away" then
+        return 100 - localPercentage
+    else
         return 0
     end
-
-    local sum = 0
-    local validBlocksCount = 0
-
-    for i = 1, 6 do
-        if array[i] then
-            sum = sum + array[i]
-            validBlocksCount = validBlocksCount + 1
-        end
-    end
-
-    for i = 9, 10 do
-        if array[i] and array[i] > 0 then
-            sum = sum + array[i]
-            validBlocksCount = validBlocksCount + 1
-        end
-    end
-
-    if validBlocksCount == 0 then
-        return 0
-    end
-
-    return math.floor((sum / validBlocksCount) + 0.5)
 end
 
 function TeamPossessionHistory:getPercentages()

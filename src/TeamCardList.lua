@@ -25,7 +25,7 @@ function TeamCardList:ignoredFields()
 end
 
 function TeamCardList:getTotalCards()
-    return self.address:readByTypeIntegerWithIndex(1)
+    return self.address:readFieldByIndex(1)
 end
 
 function TeamCardList:getCards()
