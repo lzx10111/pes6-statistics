@@ -9,7 +9,10 @@ setmetatable(GameData, { __index = Data })
 
 GameData.MatchSummaryStats = MatchSummaryStats
 GameData.matchDetails = MatchDetails
-GameData.playerMatchStats = PlayerMatchStats:new({baseAddress = "010CFA4E"})
+GameData.playerMatchStats1 = PlayerMatchStats:new({baseAddress = "010CFA4E"})
+GameData.playerMatchStats2 = PlayerMatchStats:new({baseAddress = "010CF9E6"})
+GameData.playerMatchStats3 = PlayerMatchStats:new({baseAddress = "010CF97E"})
+GameData.playerMatchStats4 = PlayerMatchStats:new({baseAddress = "010CF916"})
 
 function GameData:getSimpleName()
     return "GameData"

@@ -30,8 +30,7 @@ function MatchPlayerShotsOnGoal:ignoredFields()
 end
 
 function MatchPlayerShotsOnGoal:getShots()
-    local originalValue = self.address:readFieldByIndex(1)
-    return self:getMaskedStat(originalValue)
+    return self:readBaseValueIgnoringParity(1)
 end
 
 function MatchPlayerShotsOnGoal:getShotsOnGoal()
@@ -40,18 +39,7 @@ function MatchPlayerShotsOnGoal:getShotsOnGoal()
 end
 
 function MatchPlayerShotsOnGoal:getGoalkeeperSaves()
-    local byte1 = self.address:readFieldByIndex(2)
-    local byte2 = self.address:readFieldByIndex(3)
-
-    local is_odd = (byte1 >= 128)
-    local saves_base = byte2 % 32
-
-    local goalkeeper_saves = saves_base * 2
-    if is_odd then
-        goalkeeper_saves = goalkeeper_saves + 1
-    end
-
-    return goalkeeper_saves
+    return self:readBaseValueBasedOnParity(2, 3)
 end
 
 function MatchPlayerShotsOnGoal:getInTheArea()
@@ -70,23 +58,11 @@ function MatchPlayerShotsOnGoal:getHeader()
 end
 
 function MatchPlayerShotsOnGoal:getRightFoot()
-    local byte1 = self.address:readFieldByIndex(5)
-    local byte2 = self.address:readFieldByIndex(6)
-
-    local right_foot_position = math.floor(byte1 / 64)
-    local right_foot_loops = byte2 % 16
-
-    return (right_foot_loops * 4) + right_foot_position
+    return self:readBaseValueBasedOnPattern64(5, 6)
 end
 
 function MatchPlayerShotsOnGoal:getLeftFoot()
-    local byte2 = self.address:readFieldByIndex(6)
-    local byte3 = self.address:readFieldByIndex(7)
-
-    local left_foot_position = math.floor(byte2 / 64)
-    local left_foot_loops = byte3 % 16
-
-    return (left_foot_loops * 4) + left_foot_position
+    return self:readBaseValueBasedOnPattern64(6, 7)
 end
 
 return MatchPlayerShotsOnGoal

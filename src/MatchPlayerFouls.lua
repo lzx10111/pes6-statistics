@@ -30,8 +30,7 @@ function MatchPlayerFouls:ignoredFields()
 end
 
 function MatchPlayerFouls:getFouls()
-    local originalValue = self.address:readFieldByIndex(1)
-    return self:getMaskedStat(originalValue, 2)
+    return self:readBaseValueIgnoringParity2(1)
 end
 
 function MatchPlayerFouls:getDirectFouls()

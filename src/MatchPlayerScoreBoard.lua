@@ -28,27 +28,23 @@ function MatchScoreBoard:ignoredFields()
 end
 
 function MatchScoreBoard:getGoals()
-    local originalValue = self.address:readFieldByIndex(1)
-    return self:getMaskedStat(originalValue)
+    return self:readBaseValueIgnoringParity(1)
 end
 
 function MatchScoreBoard:getTotalgoals()
-    return self.address:readFieldByIndex(2)
+    return self:readBaseValueIgnoringParity(2)
 end
 
 function MatchScoreBoard:getPenalties()
-    local originalValue = self.address:readFieldByIndex(3)
-    return self:getMaskedStat(originalValue / 8)
+    return self:readBaseValueIgnoringParity8(3)
 end
 
 function MatchScoreBoard:getFoulKick()
-    local originalValue = self.address:readFieldByIndex(4)
-    return self:getMaskedStat(originalValue / 2)
+    return self:readBaseValueIgnoringParity2(4)
 end
 
 function MatchScoreBoard:getAssists()
-    local originalValue = self.address:readFieldByIndex(5)
-    return self:getMaskedStat(originalValue / 4)
+    return self:readBaseValueIgnoringParity4(5)
 end
 
 return MatchScoreBoard

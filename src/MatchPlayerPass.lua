@@ -26,18 +26,11 @@ function MatchPlayerPass:ignoredFields()
 end
 
 function MatchPlayerPass:getPasses()
-    local byte1 = self.address:readFieldByIndex(1)
-    local byte2 = self.address:readFieldByIndex(2)
-
-    local passes_position = math.floor(byte1 / 64)
-    local passes_loops = byte2 % 16
-
-    return (passes_loops * 4) + passes_position
+    return self:readBaseValueBasedOnPattern64(1, 2)
 end
 
 function MatchPlayerPass:getCrossPasses()
-    local originalValue = self.address:readFieldByIndex(4)
-    return self:getMaskedStat(originalValue, 4)
+    return self:readBaseValueIgnoringParity4(4)
 end
 
 function MatchPlayerPass:getSuccesses()

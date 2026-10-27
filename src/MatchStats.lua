@@ -21,11 +21,11 @@ function MatchStats:new(o)
     o.matchCornerKick = Address:build(MatchCornerKick, o.baseAddress, { 0, 2, 1 }, { 1, 1, 1 }, 33)
     o.matchDribbling = Address:build(MatchDribbling, o.baseAddress, { 0, 2 }, { 2, 2 }, 42)
     o.matchFoulKicks = Address:build(MatchFoulKicks, o.baseAddress, { 0, 1, 2, 3, 4 }, { 1, 1, 1, 1, 1 }, 36)
-    o.matchFouls = Address:build(MatchFouls, o.baseAddress, { 0, 1, 2, 3, -2230, 4 }, { 1, 1, 1, 1, 1, 1 }, 28)
+    o.matchFouls = Address:build(MatchFouls, o.baseAddress, { 0, 1, 2, 3, 4, 5 }, { 1, 1, 1, 1, 1, 1 }, 28)
     o.matchPass = Address:build(MatchPass, o.baseAddress, { 0, 4, 2 }, { 2, 1, 2 }, 22)
     o.matchPassesCut = Address:build(MatchPassesCut, o.baseAddress, { 0 }, { 1 }, 27)
     o.matchPossessionZone = Address:build(MatchPossessionZone, o.baseAddress, { 0 }, { 2 }, 0)
-    o.matchScoreBoard = Address:build(MatchScoreBoard, o.baseAddress, { 0, nil, 6, 8, 10 }, { 1, nil, 1, 1, 1 }, 2)
+    o.matchScoreBoard = Address:build(MatchScoreBoard, o.baseAddress, { 0, nil, 4, 5, 10 }, { 1, nil, 1, 1, 1 }, 2)
     o.matchShotsOnGoal = Address:build(MatchShotsOnGoal, o.baseAddress, { 0, 1, 2, 3, 4, 5, 6 }, { 1, 1, 1, 1, 1, 1, 1 }, 14)
 
     return o

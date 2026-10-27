@@ -1,9 +1,8 @@
-local String = _G.Classes.String
-local Bit = _G.Classes.Bit
+local ByteDecoder = _G.Classes.ByteDecoder
 local Data = {}
 Data.__index = Data
 
-setmetatable(Data, { __index = String })
+setmetatable(Data, { __index = ByteDecoder })
 
 function Data:setData()
 
@@ -176,15 +175,6 @@ function Data:writeFieldRecursive(addr, val, string_max_size)
             table_offset = table_offset + self:getValueSize(val[j], string_max_size)
         end
     end
-end
-
-function Data:getMaskedStat(originalByte, divisor)
-    if not originalByte then return 0 end
-    divisor = divisor or 1
-
-    local value = Bit.band(originalByte, 0x7F)
-
-    return math.floor(value / divisor)
 end
 
 function Data:getSimpleName()

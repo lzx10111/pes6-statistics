@@ -29,7 +29,7 @@ function MatchPlayerDribbling:getNumber()
 end
 
 function MatchPlayerDribbling:getDistanceTraveled()
-    return self.address:readFieldByIndex(2)
+    return self:readBaseValueBasedOnFloatPattern(2, 3)
 end
 
 return MatchPlayerDribbling

@@ -18,13 +18,13 @@ function PlayerMatchStats:new(o)
     o = o or {}
     setmetatable(o, self)
 
-    -- o.matchCornerKick = Address:build(MatchPlayerCornerKick, o.baseAddress, { 0, 2, 1 }, { 1, 1, 1 }, 33)
-    -- o.matchDribbling = Address:build(MatchDribbling, o.baseAddress, { 0, 2 }, { 2, 2 }, 42)
-    -- o.matchFoulKicks = Address:build(MatchFoulKicks, o.baseAddress, { 0, 1, 2, 3, 4 }, { 1, 1, 1, 1, 1 }, 36)
+    o.matchCornerKick = Address:build(MatchPlayerCornerKick, o.baseAddress, { 0, 14, 15, 16 }, { 1, 1, 1, 1 }, 9)
+    o.matchDribbling = Address:build(MatchPlayerDribbling, o.baseAddress, { 0, 5, 6 }, { 1, 1, 1 }, 31)
+    o.matchFoulKicks = Address:build(MatchPlayerFoulKicks, o.baseAddress, { 0, 1, 2, 3 }, { 1, 1, 1, 1 }, 26)
     o.matchFouls = Address:build(MatchPlayerFouls, o.baseAddress, { 0, 1, 2, 3 }, { 1, 1, 1, 1 }, 20)
     o.matchPass = Address:build(MatchPlayerPass, o.baseAddress, { 0, 1, 2, 3 }, { 1, 1, 1, 1 }, 16)
     o.matchPassesCut = Address:build(MatchPlayerPassesCut, o.baseAddress, { 0 }, { 1 }, 30)
-    -- o.matchPossessionZone = Address:build(MatchPossessionZone, o.baseAddress, { 0 }, { 2 }, 0)
+    o.matchPossessionZone = Address:build(MatchPlayerPossessionZone, o.baseAddress, { 0 }, { 2 }, 0)
     o.matchScoreBoard = Address:build(MatchPlayerScoreBoard, o.baseAddress, { 0, 1, 2, 3, 4 }, { 1, 1, 1, 1, 1 }, 2)
     o.matchShotsOnGoal = Address:build(MatchPlayerShotsOnGoal, o.baseAddress, { 0, 1, 2, 3, 4, 5, 6 }, { 1, 1, 1, 1, 1, 1, 1 }, 10)
 

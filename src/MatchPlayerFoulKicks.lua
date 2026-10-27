@@ -28,23 +28,23 @@ function MatchPlayerFoulKicks:ignoredFields()
 end
 
 function MatchPlayerFoulKicks:getNumberOfFoulKick()
-    return self.address:readFieldByIndex(1)
+    return self:readBaseValueIgnoringParity(1)
 end
 
 function MatchPlayerFoulKicks:getDirectFoulKick()
-    return self.address:readFieldByIndex(2)
+    return self:readBaseValueIgnoringParity(2)
 end
 
 function MatchPlayerFoulKicks:getPass()
-    return self.address:readFieldByIndex(3)
+    return self:readBaseValueBasedOnParity(2, 3)
 end
 
 function MatchPlayerFoulKicks:getShotsOnGoal()
-    return self.address:readFieldByIndex(4)
+    return self:readBaseValueBasedOnPattern32(3, 4)
 end
 
 function MatchPlayerFoulKicks:getIndirectFoulKick()
-    return self.address:readFieldByIndex(5)
+    return self:readBaseValueIgnoringParity8(4)
 end
 
 return MatchPlayerFoulKicks

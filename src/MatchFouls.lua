@@ -41,15 +41,15 @@ function MatchFouls:getIndirectFouls()
 end
 
 function MatchFouls:getOffside()
-    return self.address:readFieldByIndex(4)
+    return self:readBaseValueIgnoringParity2(4)
 end
 
 function MatchFouls:getYellowCards()
-    return self.address:readFieldByIndex(5)
+    return self:readBaseValueIgnoringParity8(5)
 end
 
 function MatchFouls:getRedCards()
-    return self.address:readFieldByIndex(6)
+    return self.address:readFieldByIndex(5) % 8
 end
 
 return MatchFouls
