@@ -20,14 +20,16 @@ function TeamSubstitutionsList:getSimpleName()
     return "TeamSubstitutionsList"
 end
 
+function TeamSubstitutionsList:ignoredFields()
+    return {"address"}
+end
+
 function TeamSubstitutionsList:getTotalTeamSubstitutions()
-    local address = self.address:AddOffsetToAddress(1)
-    return readByte(address)
+    return readByte(self.address:AddOffsetToAddress(1))
 end
 
 function TeamSubstitutionsList:getTeamSubstitutions()
-    local address = self.address:AddOffsetToAddress(2)
-    return self:getDoubleArrayFromAddress(address, self.totalTeamSubstitutions, 8, 4)
+    return self:getDoubleArrayFromAddress(self.address:AddOffsetToAddress(2), self:getTotalTeamSubstitutions(), 8, 1, 4)
 end
 
 return TeamSubstitutionsList

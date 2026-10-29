@@ -54,11 +54,19 @@ local function writeToConsole(message, colorCode)
 end
 
 function Console.log(message)
-    writeToConsole(message, 0x000000)
+    writeToConsole("[LOG] " .. message, 0x000000)
+end
+
+function Console.system(message)
+    writeToConsole("[SYSTEM] " .. message, 0x666666)
 end
 
 function Console.error(message)
     writeToConsole("[ERROR] " .. message, 0x0000FF)
+end
+
+function Console.match(message)
+    writeToConsole("[MATCH] " .. message, 0x000000)
 end
 
 function Console.data(message)

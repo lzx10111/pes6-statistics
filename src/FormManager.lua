@@ -33,6 +33,9 @@ function FormManager:mapComponents()
     self.components.btnSave       = self.form["btnSave"]
     self.components.btnClose      = self.form["btnClose"]
 
+    self.components.cmbCommands     = self.form["cmbCommands"]
+    self.components.edtCommandInput = self.form["edtCommandInput"]
+
     if self.components.lstConsole then
         Console.init(self.components.lstConsole)
     end
@@ -79,6 +82,56 @@ function FormManager:setupEvents()
             self:selectDirectory("edtDevPath")
         end
     end
+
+        -- ========================================================
+    -- Eventos de la Consola Interactiva (Autocompletar y ENTER)
+    -- ========================================================
+    if self.components.cmbCommands and self.components.edtCommandInput then
+        
+        -- Detectar cambio en el ComboBox para autocompletar
+        self.components.cmbCommands.onChange = function()
+            local idx = self.components.cmbCommands.getItemIndex()
+            if idx > 0 then
+                local cmd = self.components.cmbCommands.getItems().getString(idx)
+                
+                if cmd == "clear" then
+                    self.components.edtCommandInput.Text = ""
+                    self.components.cmbCommands.setItemIndex(0)
+                    Console.system("[Consola]: Entrada cancelada.")
+                else
+                    self.components.edtCommandInput.Text = cmd
+                    self.components.edtCommandInput.setFocus()
+                end
+            end
+        end
+
+        -- Detectar ENTER o letras de descarte rápido en el Input
+        self.components.edtCommandInput.onKeyPress = function(sender, key)
+            if string.byte(key) == 13 then -- 13 es la tecla ENTER
+                local inputCmd = self.components.edtCommandInput.Text
+
+                if string.sub(inputCmd, 1, 1) == "/" then
+                    inputCmd = string.sub(inputCmd, 2)
+                end
+
+                -- Procesamiento y enrutamiento de comandos
+                if inputCmd == "save_data" then
+                    Console.system("save_data -> Force saves game data.")
+                    self.tmrDataSaver.Enabled = true
+                elseif inputCmd == "set_classification_perfect" then
+                    Console.system("[Ejecutando]: Ajustando calificaciones a 10.0...")
+                elseif inputCmd ~= "" then
+                    Console.system("[Error]: Comando '" .. inputCmd .. "' no reconocido.")
+                end
+
+                -- Limpiar estado
+                self.components.edtCommandInput.Text = ""
+                self.components.cmbCommands.setItemIndex(0)
+                return false
+            end
+        end
+    end
+    -- ========================================================
 
     if self.components.btnSave then
         self.components.btnSave.onClick = function()
@@ -164,7 +217,7 @@ function FormManager:setupTrayIcon()
         self.form.show()
     end
 
-    self.trayIcon.Visible = true 
+    self.trayIcon.Visible = true
 end
 
 function FormManager:destroyAllTimers()
@@ -184,7 +237,7 @@ end
 function FormManager:destroyTray()
     if self.trayIcon then
         self.trayIcon.Visible = false
-        self.trayIcon.PopupMenu = nil -- Desvinculamos el menú primero
+        self.trayIcon.PopupMenu = nil
         self.trayIcon = nil
     end
     if self.popupMenu then
@@ -219,6 +272,15 @@ function FormManager:loadCurrentSettings()
     if self.components.lblStatus then
         self.components.lblStatus.Caption = "PES6 Status: Disconnected"
         self.components.lblStatus.Font.Color = 0x0000FF
+    end
+
+    if self.components.cmbCommands then
+        self.components.cmbCommands.Items.clear()
+        self.components.cmbCommands.Items.add("--- Seleccionar Comando ---")
+        self.components.cmbCommands.Items.add("save_data")
+        self.components.cmbCommands.Items.add("save_console_data")
+        self.components.cmbCommands.Items.add("clear")
+        self.components.cmbCommands.setItemIndex(0)
     end
 
     self:onMethodChanged()
@@ -367,9 +429,7 @@ function FormManager:onSavePressed()
         _G.DEV_PATH = self.components.edtDevPath.Text
     end
 
-    local gameDataInstance = _G.Classes.GameData
-    gameDataInstance:updateData()
-    print(gameDataInstance:toJson(true))
+    Console.system("Settings saved successfully.")
 end
 
 return FormManager

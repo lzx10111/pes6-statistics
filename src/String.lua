@@ -12,16 +12,12 @@ function String:toString()
     if next(fields) ~= nil then
         has_content = true
         for key, value in pairs(fields) do
-            -- 🛡️ ESCUDO ANTICRASH: Si la clave es un método interno o la metatabla, la ignoramos
-            -- Esto evita que el script entre en la recursión infinita de las clases estáticas
             if key ~= "__index" and key ~= "super" and type(value) ~= "function" then
-                
                 if type(value) == "table" and getmetatable(value) ~= nil and type(value.toString) == "function" then
                     str = str .. value:toString() .. ", "
                 else
                     str = str .. key .. "=" .. self:typeTostring(value) .. ", "
                 end
-                
             end
         end
     end

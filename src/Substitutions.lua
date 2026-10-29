@@ -6,8 +6,8 @@ Substitutions.__index = Substitutions
 
 setmetatable(Substitutions, { __index = Data })
 
-Substitutions.home = Address:build(TeamSubstitutionsList, "03BE0A78", { 0, 0xBBA})
-Substitutions.away = Address:build(TeamSubstitutionsList, "03BE0A79", { 0, 0xC44})
+Substitutions.home = Address:build(TeamSubstitutionsList, "03BE0A78", { 0, 3002})
+Substitutions.away = Address:build(TeamSubstitutionsList, "03BE0A79", { 0, 3140})
 
 function Substitutions:setData()
     if self.home then

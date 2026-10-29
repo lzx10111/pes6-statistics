@@ -117,11 +117,11 @@ function MatchStateReader:updatePhase()
 
     if self.fullTime == 1 and lastPhase then
         if self.phase == MatchStateReader.Phases.SECOND_HALF_END then
-            Console.log("[MATCH] Full-time. Match ended in regular time.")
+            Console.match("Full-time. Match ended in regular time.")
         elseif self.phase == MatchStateReader.Phases.EXTRA_TIME_SECOND_HALF_END then
-            Console.log("[MATCH] Full-time. Match ended in extra time.")
+            Console.match("Full-time. Match ended in extra time.")
         elseif self.phase == MatchStateReader.Phases.PENALTY_SHOOTOUT_END then
-            Console.log("[MATCH] Full-time. Match decided by penalty shootout.")
+            Console.match("Full-time. Match decided by penalty shootout.")
         end
 
         self.phase = MatchStateReader.Phases.MATCH_START
@@ -131,14 +131,14 @@ function MatchStateReader:updatePhase()
 
     if not self.isMatchActive and self.phase == MatchStateReader.Phases.MATCH_START then
         self.phase = MatchStateReader.Phases.FIRST_HALF_START
-        Console.log("[MATCH] Pre-match phase started.")
+        Console.match("Pre-match phase started.")
         return
     end
 
     if self.menuBackground ~= 5 then
         if self.isMatchActive and self.phase == MatchStateReader.Phases.FIRST_HALF_START then
             self.phase = MatchStateReader.Phases.FIRST_HALF_END
-            Console.log("[MATCH] Kickoff! First half has started.")
+            Console.match("Kickoff! First half has started.")
             return
         end
     end
@@ -146,14 +146,14 @@ function MatchStateReader:updatePhase()
     if self.firstHalfEnd == 1 and self.phase == MatchStateReader.Phases.FIRST_HALF_END then
         self.phase = MatchStateReader.Phases.SECOND_HALF_START
         self.save = true
-        Console.log("[MATCH] Half-time interval.")
+        Console.match("Half-time interval.")
         return
     end
 
     if self.menuBackground ~= 5 then
         if self.isMatchActive and self.firstHalfEnd ~= 1 and self.phase == MatchStateReader.Phases.SECOND_HALF_START then
             self.phase = MatchStateReader.Phases.SECOND_HALF_END
-            Console.log("[MATCH] Second half has started.")
+            Console.match("Second half has started.")
             return
         end
     end
@@ -161,14 +161,14 @@ function MatchStateReader:updatePhase()
     if self.secondHalfEnd == 1 and self.phase == MatchStateReader.Phases.SECOND_HALF_END then
         self.phase = MatchStateReader.Phases.EXTRA_TIME_FIRST_HALF_START
         self.save = true
-        Console.log("[MATCH] End of regular time.")
+        Console.match("End of regular time.")
         return
     end
 
     if self.menuBackground ~= 5 then
         if self.isMatchActive and self.secondHalfEnd ~= 1 and self.phase == MatchStateReader.Phases.EXTRA_TIME_FIRST_HALF_START then
             self.phase = MatchStateReader.Phases.EXTRA_TIME_FIRST_HALF_END
-            Console.log("[MATCH] Extra time started.")
+            Console.match("Extra time started.")
             return
         end
     end
@@ -176,14 +176,14 @@ function MatchStateReader:updatePhase()
     if self.extraTimeFirstHalfEnd == 1 and self.phase == MatchStateReader.Phases.EXTRA_TIME_FIRST_HALF_END then
         self.phase = MatchStateReader.Phases.EXTRA_TIME_SECOND_HALF_START
         self.save = true
-        Console.log("[MATCH] Extra time half-time.")
+        Console.match("Extra time half-time.")
         return
     end
 
     if self.menuBackground ~= 5 then
         if self.isMatchActive and self.extraTimeFirstHalfEnd ~= 1 and self.phase == MatchStateReader.Phases.EXTRA_TIME_SECOND_HALF_START then
             self.phase = MatchStateReader.Phases.EXTRA_TIME_SECOND_HALF_END
-            Console.log("[MATCH] Extra time second half started.")
+            Console.match("Extra time second half started.")
             return
         end
     end
@@ -191,14 +191,14 @@ function MatchStateReader:updatePhase()
     if self.extraTimeSecondHalfEnd == 1 and self.phase == MatchStateReader.Phases.EXTRA_TIME_SECOND_HALF_END then
         self.phase = MatchStateReader.Phases.PENALTY_SHOOTOUT_START
         self.save = true
-        Console.log("[MATCH] End of extra time.")
+        Console.match("End of extra time.")
         return
     end
 
     if self.menuBackground ~= 5 then
         if self.isMatchActive and self.extraTimeSecondHalfEnd ~= 1 and self.phase == MatchStateReader.Phases.PENALTY_SHOOTOUT_START then
             self.phase = MatchStateReader.Phases.PENALTY_SHOOTOUT_END
-            Console.log("[MATCH] Penalty shootout has started.")
+            Console.match("Penalty shootout has started.")
             return
         end
     end
