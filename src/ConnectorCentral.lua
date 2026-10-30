@@ -28,9 +28,11 @@ local function transmitByTempJson(jsonString)
         path = path .. "/"
     end
 
+    ---@diagnostic disable-next-line: undefined-global
     local filename = path .. "pes6_payload_" .. getTickCount() .. ".json"
-    
+    ---@diagnostic disable-next-line: undefined-global
     local sl = createStringList()
+
     if sl then
         sl.add(jsonString)
         sl.saveToFile(filename)
