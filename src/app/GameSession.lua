@@ -1,5 +1,5 @@
 local Data = _G.Classes.Data
-local App = {
+local GameSession = {
     status = {
         isGameRunning = false,
         startTime = nil,
@@ -10,11 +10,11 @@ local App = {
     }
 }
 
-App.__index = App
+GameSession.__index = GameSession
 
-setmetatable(App, { __index = Data })
+setmetatable(GameSession, { __index = Data })
 
-function App:setGameOpened()
+function GameSession:setGameOpened()
     local currentTimestamp = os.time()
 
     self.status.isGameRunning = true
@@ -26,7 +26,7 @@ function App:setGameOpened()
     self.status.sessionDuration = 0
 end
 
-function App:setGameClosed()
+function GameSession:setGameClosed()
     local currentTimestamp = os.time()
 
     self.status.isGameRunning = false
@@ -38,4 +38,4 @@ function App:setGameClosed()
     end
 end
 
-return App
+return GameSession

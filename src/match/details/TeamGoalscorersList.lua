@@ -31,15 +31,15 @@ function TeamGoalscorersList:getScorersCount()
 end
 
 function TeamGoalscorersList:getPlayers()
-    return self:getArrayFromAddress(self.address:AddOffsetToAddress(2), self.scorersCount, 1, 1)
+    return self:getArrayFromAddress(self.address:addOffsetToAddress(2), self.scorersCount, 1, 1)
 end
 
 function TeamGoalscorersList:getGoalCounts()
-    return self:getArrayFromAddress(self.address:AddOffsetToAddress(3), self.scorersCount, 1, 1)
+    return self:getArrayFromAddress(self.address:addOffsetToAddress(3), self.scorersCount, 1, 1)
 end
 
 function TeamGoalscorersList:getMinutes()
-    local arr = self:getDoubleArrayFromAddress(self.address:AddOffsetToAddress(4), self.scorersCount, 10, 1, 10)
+    local arr = self:getDoubleArrayFromAddress(self.address:addOffsetToAddress(4), self.scorersCount, 10, 1, 10)
 
     for _, row in ipairs(arr) do
         for i = #row, 1, -1 do

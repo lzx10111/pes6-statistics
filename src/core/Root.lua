@@ -71,7 +71,7 @@ end
 function Root:getPercentageArrayFromAddress(address)
     local arr = {}
 
-    arr[1] = readShortInteger(address)
+    arr[1] = readByte(address)
     arr[2] = 100 - arr[1]
 
     return arr
@@ -96,14 +96,14 @@ function Root:getArrayFromTwoAddress(address1, address2, len, interval1, interva
 
     for i = 1, len do
         if len > 1 then
-            a[i] = readShortInteger(address1)
-            b[i] = readShortInteger(address2)
+            a[i] = readByte(address1)
+            b[i] = readByte(address2)
 
             address1 = string.format("%X", tonumber(address1, 16) + interval1)
             address2 = string.format("%X", tonumber(address2, 16) + interval2)
         else
-            arr[1] = readShortInteger(address1)
-            arr[2] = readShortInteger(address2)
+            arr[1] = readByte(address1)
+            arr[2] = readByte(address2)
         end
     end
 

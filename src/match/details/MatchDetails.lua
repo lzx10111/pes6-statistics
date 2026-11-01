@@ -11,7 +11,7 @@ MatchDetails.__index = MatchDetails
 
 setmetatable(MatchDetails, { __index = Data })
 
-MatchDetails.antecedent = Antecedent:new()
+MatchDetails.antecedent = Antecedent
 MatchDetails.goalscorers = Goalscorers
 MatchDetails.possessionHistory = PossessionHistory
 MatchDetails.substitutions = Substitutions

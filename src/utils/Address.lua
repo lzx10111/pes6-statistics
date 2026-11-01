@@ -41,15 +41,15 @@ function Address:setPointer(address, offset)
         value = self:readByTypeInteger(3, self:getAddress())
         value = string.format("%X", value)
         self:setAddress(value)
-        self:setAddress(self:AddValueToAddress(tonumber(offset[i], 16)))
+        self:setAddress(self:addValueToAddress(tonumber(offset[i], 16)))
     end
 end
 
-function Address:AddValueToAddress(value)
+function Address:addValueToAddress(value)
     return Address.add(self.address, value)
 end
 
-function Address:AddOffsetToAddress(value)
+function Address:addOffsetToAddress(value)
     local offset = self.offset[value]
     if offset == nil then return nil end
     return Address.add(self.address, offset)
@@ -57,7 +57,7 @@ end
 
 function Address:readFieldByIndex(index)
     local typeValue = self.typeValue[index]
-    local address = self:AddOffsetToAddress(index)
+    local address = self:addOffsetToAddress(index)
     if typeValue == nil or address == nil then return nil end
     return self:readByTypeInteger(typeValue, address)
 end

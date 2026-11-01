@@ -13,7 +13,6 @@ end
 
 function MatchScoreBoard:setData()
     self.goals = self:getGoals()
-    self.totalgoals = self:getTotalgoals()
     self.penalties = self:getPenalties()
     self.foulKick = self:getFoulKick()
     self.assists = self:getAssists()
@@ -31,20 +30,16 @@ function MatchScoreBoard:getGoals()
     return self.address:readFieldByIndex(1)
 end
 
-function MatchScoreBoard:getTotalgoals()
+function MatchScoreBoard:getPenalties()
     return self.address:readFieldByIndex(2)
 end
 
-function MatchScoreBoard:getPenalties()
+function MatchScoreBoard:getFoulKick()
     return self.address:readFieldByIndex(3)
 end
 
-function MatchScoreBoard:getFoulKick()
-    return self.address:readFieldByIndex(4)
-end
-
 function MatchScoreBoard:getAssists()
-    return self.address:readFieldByIndex(5)
+    return self.address:readFieldByIndex(4)
 end
 
 return MatchScoreBoard

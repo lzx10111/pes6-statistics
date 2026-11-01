@@ -25,7 +25,7 @@ function MatchStats:new(o)
     o.matchPass = Address:build(MatchPass, o.baseAddress, { 0, 4, 2 }, { 2, 1, 2 }, 22)
     o.matchPassesCut = Address:build(MatchPassesCut, o.baseAddress, { 0 }, { 1 }, 27)
     o.matchPossessionZone = Address:build(MatchPossessionZone, o.baseAddress, { 0 }, { 2 }, 0)
-    o.matchScoreBoard = Address:build(MatchScoreBoard, o.baseAddress, { 0, nil, 4, 5, 10 }, { 1, nil, 1, 1, 1 }, 2)
+    o.matchScoreBoard = Address:build(MatchScoreBoard, o.baseAddress, { 0, 4, 5, 10 }, { 1, 1, 1, 1 }, 2)
     o.matchShotsOnGoal = Address:build(MatchShotsOnGoal, o.baseAddress, { 0, 1, 2, 3, 4, 5, 6 }, { 1, 1, 1, 1, 1, 1, 1 }, 14)
 
     return o

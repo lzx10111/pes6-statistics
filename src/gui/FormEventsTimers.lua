@@ -14,14 +14,14 @@ function FormEventsTimers.onProcessCheckTick(formManager)
         return
     end
 
-    if not _G.Classes or not _G.Classes.App or not _G.Classes.App.status then
+    if not _G.Classes or not _G.Classes.GameSession or not _G.Classes.GameSession.status then
         formManager.isChecking = false
         return
     end
 
     local pid = getProcessIDFromProcessName("pes6.exe") or 0
     local isGameRunningNow = (pid ~= 0)
-    local appInstance = _G.Classes.App
+    local appInstance = _G.Classes.GameSession
 
     if isGameRunningNow then
         if formManager.components.lblStatus then

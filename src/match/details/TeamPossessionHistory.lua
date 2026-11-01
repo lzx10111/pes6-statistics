@@ -37,11 +37,11 @@ function TeamPossessionHistory:getTotalPercentage()
 end
 
 function TeamPossessionHistory:getPercentages()
-    return self:getArrayFromAddress(self.address:AddOffsetToAddress(1), 10, 1, 1)
+    return self:getArrayFromAddress(self.address:addOffsetToAddress(1), 10, 1, 1)
 end
 
 function TeamPossessionHistory:getHistory()
-    return self:getArrayFromAddress(self.address:AddOffsetToAddress(2), 60, 2, 1)
+    return self:getArrayFromAddress(self.address:addOffsetToAddress(2), 60, 2, 1)
 end
 
 return TeamPossessionHistory
