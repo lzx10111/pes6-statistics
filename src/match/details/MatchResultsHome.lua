@@ -6,7 +6,7 @@ MatchResultsHome.__index = MatchResultsHome
 
 setmetatable(MatchResultsHome, { __index = Data })
 
-MatchResultsHome.matchStats = MatchStats:new({baseAddress = "010D0D50"})
+MatchResultsHome.matchStats = MatchStats:new({baseAddress = "010D0D50", side = "home"})
 
 function MatchResultsHome:setData()
     if self.matchStats then

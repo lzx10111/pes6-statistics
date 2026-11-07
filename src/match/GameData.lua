@@ -7,7 +7,7 @@ GameData.__index = GameData
 
 setmetatable(GameData, { __index = Data })
 
-GameData.MatchSummaryStats = MatchSummaryStats
+GameData.matchSummaryStats = MatchSummaryStats
 GameData.matchDetails = MatchDetails
 GameData.individualMatchData = IndividualMatchData
 

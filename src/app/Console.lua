@@ -57,7 +57,13 @@ function Console.log(message)
     writeToConsole("[LOG] " .. message, 0x000000)
 end
 
-function Console.system(message)
+function Console.system(message, command)
+    command = command or nil
+
+    if command then
+        message = command .. " -> " .. message
+    end
+
     writeToConsole("[SYSTEM] " .. message, 0x666666)
 end
 

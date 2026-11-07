@@ -1,5 +1,8 @@
 local Console = _G.Classes.Console
 local ConnectorCentral = _G.Classes.ConnectorCentral
+local GameData = _G.Classes.GameData
+local FormManagerJsonViewer = _G.Classes.FormManagerJsonViewer
+local json = require("json")
 local FormEvents = {}
 
 function FormEvents.onCmbMethodChange(formManager)
@@ -44,9 +47,29 @@ function FormEvents.onEdtCommandInputKeyPress(formManager, key)
             inputCmd = string.sub(inputCmd, 2)
         end
 
-        if inputCmd == "save_data" then
-            Console.system("save_data -> Force saves game data.")
+        if inputCmd == "save_game_data" then
+            Console.system("Force saves game data.", "save_game_data")
             formManager.tmrDataSaver.Enabled = true
+        elseif inputCmd == "view_game_data" then
+            Console.system("View game data.", "view_game_data")
+            ---@diagnostic disable-next-line: undefined-global
+            createThread(function(thread)
+                GameData:updateData()
+                local data = GameData:toTable()
+
+                thread.synchronize(function()
+                    FormEvents.viewData("view_game_data", data)
+                end)
+            end)
+        elseif inputCmd == "view_classnames" then
+            Console.system("View classnames.", "view_classnames")
+            local classNames = {}
+
+            for className, _ in pairs(_G.Classes) do
+                table.insert(classNames, className)
+            end
+
+            FormEvents.viewData("view_classnames", classNames)
         elseif inputCmd ~= "" then
             Console.system("Invalid command: " .. inputCmd)
         end
@@ -124,6 +147,16 @@ function FormEvents.selectDirectory(formManager, targetEditName)
             formManager.components[targetEditName].Text = dialog.FileName
         end
     end
+end
+
+function FormEvents.viewData(command, data)
+    local payload = {
+        data = data
+    }
+    local jsonString = json.encode(payload)
+
+    FormManagerJsonViewer:loadJsonString(jsonString, command)
+    FormManagerJsonViewer.form:show()
 end
 
 return FormEvents

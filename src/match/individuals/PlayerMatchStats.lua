@@ -1,6 +1,7 @@
 local Data = _G.Classes.Data
 local Address = _G.Classes.Address
 local MatchPlayerPerformance = _G.Classes.MatchPlayerPerformance
+local MatchPlayerHeatmap = _G.Classes.MatchPlayerHeatmap
 local MatchPlayerCornerKick = _G.Classes.MatchPlayerCornerKick
 local MatchPlayerDribbling = _G.Classes.MatchPlayerDribbling
 local MatchPlayerFoulKicks = _G.Classes.MatchPlayerFoulKicks
@@ -19,6 +20,7 @@ function PlayerMatchStats:new(o)
     o = o or {}
     setmetatable(o, self)
 
+    o.matchHeatmap = Address:build(MatchPlayerHeatmap, o.baseAddress, { 0, 18, 36 }, { 1, 1, 1 }, -58)
     o.matchPerformance = Address:build(MatchPlayerPerformance, o.baseAddress, { 0, 1 }, { 1, 1 }, -2)
     o.matchCornerKick = Address:build(MatchPlayerCornerKick, o.baseAddress, { 0, 14, 15, 16 }, { 1, 1, 1, 1 }, 9)
     o.matchDribbling = Address:build(MatchPlayerDribbling, o.baseAddress, { 0, 5, 6 }, { 1, 1, 1 }, 31)

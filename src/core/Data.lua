@@ -9,7 +9,7 @@ function Data:setData()
 end
 
 function Data:updateData()
-    local app = _G.Classes and _G.Classes.App
+    local app = _G.Classes and _G.Classes.GameSession
     if not app or not app.status.isGameRunning then
         return
     end

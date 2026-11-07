@@ -1,13 +1,8 @@
 local FormCreator = {}
 
 function FormCreator:build()
-    if frmConfig then
-        pcall(function() frmConfig.destroy() end)
-        frmConfig = nil
-    end
-
     -- Base Window
-    frmConfig = createForm(false)
+    local frmConfig = createForm(false)
     frmConfig.Caption = "PES6 Match Connector Settings"
     frmConfig.Width = 520
     frmConfig.Height = 560
@@ -156,6 +151,8 @@ function FormCreator:build()
     btnSave.Width = 75
     btnSave.Height = 25
     btnSave.Caption = "Save"
+
+    return frmConfig
 end
 
 return FormCreator

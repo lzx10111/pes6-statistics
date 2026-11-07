@@ -210,9 +210,10 @@ function FormManager:loadCurrentSettings()
 
     if self.components.cmbCommands then
         self.components.cmbCommands.Items.clear()
-        self.components.cmbCommands.Items.add("--- Seleccionar Comando ---")
-        self.components.cmbCommands.Items.add("save_data")
-        self.components.cmbCommands.Items.add("save_console_data")
+        self.components.cmbCommands.Items.add("--- Select Command ---")
+        self.components.cmbCommands.Items.add("save_game_data")
+        self.components.cmbCommands.Items.add("view_game_data")
+        self.components.cmbCommands.Items.add("view_classnames")
         self.components.cmbCommands.Items.add("clear")
         self.components.cmbCommands.setItemIndex(0)
     end

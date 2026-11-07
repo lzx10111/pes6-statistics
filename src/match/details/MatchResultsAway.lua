@@ -6,7 +6,7 @@ MatchResultsAway.__index = MatchResultsAway
 
 setmetatable(MatchResultsAway, { __index = Data })
 
-MatchResultsAway.matchStats = MatchStats:new({baseAddress = "010D0D8C"})
+MatchResultsAway.matchStats = MatchStats:new({baseAddress = "010D0D8C", side = "away"})
 
 function MatchResultsAway:setData()
     if self.matchStats then

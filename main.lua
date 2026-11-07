@@ -122,6 +122,9 @@ end
 local function loadOrderedClass(className)
     if _G.Classes[className] then return _G.Classes[className] end
 
+    -- 🔍 AGREGA ESTA LÍNEA AQUÍ PARA PILLAR AL CULPABLE:
+    print("👉 Intentando cargar archivo físico de: " .. tostring(className))
+
     local absolutePath = classPathMap[className]
     if not absolutePath then
         error("No se pudo mapear la ruta para la clase: " .. className)
@@ -154,6 +157,13 @@ local function initializeProject()
         return
     end
 
+    -- 📋 AQUÍ SE IMPRIME EL ORDEN DE CARGA CALCULADO:
+    print("--- ORDEN DE CARGA DETECTADO ---")
+    for index, className in ipairs(loadOrder) do
+        print(string.format("[%d] %s", index, className))
+    end
+    print("---------------------------------")
+
     for _, className in ipairs(loadOrder) do
         loadOrderedClass(className)
     end
@@ -162,15 +172,41 @@ end
 _G.Classes = {}
 initializeProject()
 
+if _G.Classes.FormManager and _G.Classes.FormManager.form then
+    pcall(function() _G.Classes.FormManager.form.destroy() end)
+    _G.Classes.FormManager.form = nil
+end
+
+if _G.Classes.FormManagerJsonViewer and _G.Classes.FormManagerJsonViewer.form then
+    pcall(function() _G.Classes.FormManagerJsonViewer.form.destroy() end)
+    _G.Classes.FormManagerJsonViewer.form = nil
+end
+
 if _G.Classes.FormCreator and _G.Classes.FormCreator.build then
-    _G.Classes.FormCreator:build()
+    local activeConfigForm = _G.Classes.FormCreator:build()
+
+    if _G.Classes.FormCreatorJsonViewer and _G.Classes.FormCreatorJsonViewer.build then
+        local activeJsonForm = _G.Classes.FormCreatorJsonViewer:build(activeConfigForm)
+        _G.Classes.FormManagerJsonViewer:init(activeJsonForm)
+
+        activeJsonForm.Position = "poDesigned"
+        activeJsonForm.Left = -32000
+        activeJsonForm.Top = -32000
+        activeJsonForm:show()
+
+        _G.Classes.FormManagerJsonViewer:preLoadJsonString()
+
+        activeJsonForm:hide()
+        activeJsonForm.Position = "poOwnerFormCenter"
+    end
+
+    _G.Classes.FormManager.allowClose = false
+    _G.Classes.FormManager:init(activeConfigForm)
+    activeConfigForm:show()
 else
     error("Error: No se pudo encontrar la clase estática FormCreator o su método build.")
 end
 
-_G.Classes.FormManager.allowClose = false
-_G.Classes.FormManager:init(frmConfig)
-frmConfig.show()
-
 _G.Classes.FormCreator = nil
+_G.Classes.FormCreatorJsonViewer = nil
 collectgarbage("collect")

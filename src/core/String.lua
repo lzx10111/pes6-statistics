@@ -57,7 +57,7 @@ function String:toPrettyString(indent_level)
     return str .. current_indent .. "]"
 end
 
-function Root:typeTostring(v)
+function String:typeTostring(v)
     if type(v) ~= "table" then
         return tostring(v)
     end
@@ -74,7 +74,7 @@ function Root:typeTostring(v)
     return str .. " }"
 end
 
-function Root:typeToPrettyString(v, indent_level)
+function String:typeToPrettyString(v, indent_level)
     indent_level = indent_level or 0
     if type(v) ~= "table" then
         return tostring(v)
