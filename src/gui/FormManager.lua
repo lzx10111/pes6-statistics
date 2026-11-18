@@ -1,6 +1,7 @@
 local FormEventsTimers = _G.Classes.FormEventsTimers
 local FormEvents = _G.Classes.FormEvents
 local Console = _G.Classes.Console
+local ConsoleCommands = _G.Classes.ConsoleCommands
 local ConnectorCentral = _G.Classes.ConnectorCentral
 
 local FormManager = {
@@ -211,10 +212,12 @@ function FormManager:loadCurrentSettings()
     if self.components.cmbCommands then
         self.components.cmbCommands.Items.clear()
         self.components.cmbCommands.Items.add("--- Select Command ---")
-        self.components.cmbCommands.Items.add("save_game_data")
-        self.components.cmbCommands.Items.add("view_game_data")
-        self.components.cmbCommands.Items.add("view_classnames")
-        self.components.cmbCommands.Items.add("clear")
+
+        local commandList = ConsoleCommands.getCommandList()
+        for _, cmdName in ipairs(commandList) do
+            self.components.cmbCommands.Items.add(cmdName)
+        end
+
         self.components.cmbCommands.setItemIndex(0)
     end
 

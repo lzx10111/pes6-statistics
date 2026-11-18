@@ -23,7 +23,7 @@ function PossessionHistoryArea:ignoredFields()
 end
 
 function PossessionHistoryArea:getArea()
-    return self:getArrayFromAddress(self.address:addOffsetToAddress(1), 480, 2, 1)
+    return self:getArrayFromAddress(self.address:addOffsetToAddress(1), 480, 2, 2)
 end
 
 return PossessionHistoryArea

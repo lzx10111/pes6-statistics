@@ -23,7 +23,8 @@ function MatchSummaryTeamStats:setData()
     self.shotsOnGoal = self:getShotsOnGoal()
     self.penalties = self:getPenalties()
     self.freeKick = self:getFreeKick()
-    self.cornerKicks = self:getCornerKicks()
+    self.cornerKickLeft = self:getCornerKickLeft()
+    self.cornerKickRight = self:getCornerKickRight()
     self.fouls = self:getFouls()
     self.offside = self:getOffside()
     self.yellowCards = self:getYellowCards()
@@ -79,14 +80,12 @@ function MatchSummaryTeamStats:getOffside()
     return self.address:readFieldByIndex(11)
 end
 
-function MatchSummaryTeamStats:getCornerKicks()
-    local l = self.address:readFieldByIndex(12)
-    local r = self.address:readFieldByIndex(13)
-    local arr = {}
+function MatchSummaryTeamStats:getCornerKickLeft()
+    return self.address:readFieldByIndex(12)
+end
 
-    table.insert(arr, l + r)
-
-    return arr
+function MatchSummaryTeamStats:getCornerKickRight()
+    return self.address:readFieldByIndex(13)
 end
 
 function MatchSummaryTeamStats:getYellowCards()

@@ -1,13 +1,13 @@
 local Data = _G.Classes.Data
-local Address = _G.Classes.Address
 local TeamSubstitutionsList = _G.Classes.TeamSubstitutionsList
+
 local Substitutions = {}
 Substitutions.__index = Substitutions
 
 setmetatable(Substitutions, { __index = Data })
 
-Substitutions.home = Address:build(TeamSubstitutionsList, "03BE0A78", { 0, 3002})
-Substitutions.away = Address:build(TeamSubstitutionsList, "03BE0A79", { 0, 3140})
+Substitutions.home = TeamSubstitutionsList:new("03BE0A78", "03BE1632")
+Substitutions.away = TeamSubstitutionsList:new("03BE0A79", "03BE16BD")
 
 function Substitutions:setData()
     if self.home then

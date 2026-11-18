@@ -13,7 +13,7 @@ end
 
 function MatchScoreBoard:setData()
     self.goals = self:getGoals()
-    self.totalgoals = self:getTotalgoals()
+    self.totalGoals = self:getTotalGoals()
     self.penalties = self:getPenalties()
     self.foulKick = self:getFoulKick()
     self.assists = self:getAssists()
@@ -31,7 +31,7 @@ function MatchScoreBoard:getGoals()
     return self:readBaseValueIgnoringParity(1)
 end
 
-function MatchScoreBoard:getTotalgoals()
+function MatchScoreBoard:getTotalGoals()
     return self:readBaseValueIgnoringParity(2)
 end
 

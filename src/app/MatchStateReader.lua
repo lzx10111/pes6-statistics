@@ -82,6 +82,30 @@ function MatchStateReader:isMatchActiveForKickoff()
     return self.engineClockState == 1 and self.matchTimer < totalPartido and self.matchTimer > 0
 end
 
+function MatchStateReader:getMatchInterval()
+    if self.fullTime == 1 then
+        return 4
+    end
+
+    if self.firstHalfEnd == 1 then
+        return 0
+    end
+
+    if self.secondHalfEnd == 1 then
+        return 1
+    end
+
+    if self.extraTimeFirstHalfEnd == 1 then
+        return 2
+    end
+
+    if self.extraTimeSecondHalfEnd == 1 then
+        return 3
+    end
+
+    return 5
+end
+
 function MatchStateReader:updateData()
     self.firstHalfEnd = self:getFirstHalfEnd()
     self.secondHalfEnd = self:getSecondHalfEnd()
@@ -92,6 +116,7 @@ function MatchStateReader:updateData()
     self.menuBackground = self:getMenuBackground()
 
     self.matchTimer = self:getMatchTimer()
+    self.matchInterval = self:getMatchInterval()
     self.inMatch = self:getInMatch()
     self.periodIndicator = self:getPeriodIndicator()
     self.timeScaleFactor = self:getTimeScaleFactor()

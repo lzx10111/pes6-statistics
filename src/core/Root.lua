@@ -53,7 +53,7 @@ function Root:ignoredFields()
     return {}
 end
 
-function Root:readByTypeInteger(typeValue, address)
+function Root:readByType(typeValue, address)
     if typeValue == 1 then
         return readByte(address)
     end
@@ -65,6 +65,9 @@ function Root:readByTypeInteger(typeValue, address)
     end
     if typeValue == 4 then
         return readQword(address)
+    end
+    if typeValue == 5 then
+        return readFloat(address)
     end
 end
 
@@ -82,7 +85,7 @@ function Root:getArrayFromAddress(address, len, interval, typeValue)
     local arr = {}
 
     for i = 1, len do
-        arr[i] = self:readByTypeInteger(typeValue, address)
+        arr[i] = self:readByType(typeValue, address)
         address = string.format("%X", tonumber(address, 16) + interval)
     end
 

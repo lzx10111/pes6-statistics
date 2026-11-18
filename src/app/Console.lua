@@ -47,6 +47,12 @@ local function writeToConsole(message, colorCode)
 
         Console.lstConsole.Items.add(message)
         table.insert(Console.colors, colorCode or 0x000000)
+
+        local textWidth = Console.lstConsole.Canvas.getTextWidth(message) + 20
+        if textWidth > (Console.lstConsole.ScrollWidth or 0) then
+            Console.lstConsole.ScrollWidth = textWidth
+        end
+
         Console.lstConsole.ItemIndex = Console.lstConsole.Items.Count - 1
     else
         print("[Console Error] ListBox not assigned: " .. tostring(message))
@@ -87,6 +93,7 @@ function Console.clear()
     Console.colors = {}
     if Console.lstConsole then
         Console.lstConsole.Items.clear()
+        Console.lstConsole.ScrollWidth = 0
     end
 end
 

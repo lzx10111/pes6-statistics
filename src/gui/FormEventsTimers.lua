@@ -57,6 +57,11 @@ function FormEventsTimers.onProcessCheckTick(formManager)
 end
 
 function FormEventsTimers.onMemoryReaderTick(formManager)
+    local app = _G.Classes and _G.Classes.GameSession
+    if not app or not app.status.isGameRunning then
+        return
+    end
+
     local reader = _G.Classes.MatchStateReader
     if not reader then return end
 
@@ -81,11 +86,13 @@ function FormEventsTimers.onDataSaverTick(formManager)
     formManager.tmrDataSaver.Enabled = false
 
     local gameDataInstance = _G.Classes.GameData
+    local reader = _G.Classes.MatchStateReader
     local connector = _G.Classes.ConnectorCentral
 
-    if gameDataInstance and connector then
+    if gameDataInstance and reader and connector then
         gameDataInstance:updateData()
         local realTableData = gameDataInstance:toTable()
+        realTableData.matchInterval = reader.matchInterval
 
         Console.data("Saving match data...")
 

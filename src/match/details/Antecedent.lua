@@ -8,7 +8,7 @@ setmetatable(Antecedent, { __index = Data })
 Antecedent.address = Address:new({
         address = "010D0691",
         typeValue = {1, 1},
-        offset = {0, 2}
+        offset = {0, 1}
     })
 
 function Antecedent:setData()

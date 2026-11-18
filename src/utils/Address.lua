@@ -10,26 +10,46 @@ function Address:new(o)
     return o
 end
 
+function Address:create(baseAddress, offsets, typeValues, addValue)
+    -- Si viene con nombre de módulo (ej. "pes6.exe+CD31F0"), lo convertimos a hex puro una sola vez
+    if type(baseAddress) == "string" and baseAddress:find("+") then
+        local resolved = getAddress(baseAddress)
+        if resolved then
+            baseAddress = string.format("%X", resolved)
+        end
+    end
+
+    local isPointer = type(addValue) == "table"
+
+    local addrObj = self:new({
+        baseAddress    = baseAddress,
+        address        = baseAddress,
+        typeValue      = typeValues or {},
+        offset         = offsets or {},
+        pointerOffsets = isPointer and addValue or nil
+    })
+
+    if isPointer then
+        addrObj:setPointer(baseAddress, addValue)
+    else
+        addrObj.address = Address.add(baseAddress, addValue)
+    end
+
+    return addrObj
+end
+
+function Address:refresh()
+    if self.baseAddress and self.pointerOffsets then
+        self:setPointer(self.baseAddress, self.pointerOffsets)
+    end
+end
+
 function Address:build(TargetClass, baseAddress, offsets, typeValues, addValue)
     if not TargetClass then
         error("Error: 'TargetClass' es nil. ¿Olvidaste cargar la clase o está mal el nombre?")
     end
 
-    local finalAddress = baseAddress
-
-    if addValue and type(addValue) == "number" and addValue > 0 then
-        finalAddress = Address.add(baseAddress, addValue)
-    end
-
-    local finalOffsets = offsets or {}
-    local finalTypeValues = typeValues or {}
-
-    local addrObj = self:new({
-        address = finalAddress,
-        typeValue = finalTypeValues,
-        offset = finalOffsets
-    })
-
+    local addrObj = self:create(baseAddress, offsets, typeValues, addValue)
     return TargetClass:new({ address = addrObj })
 end
 
@@ -38,14 +58,15 @@ function Address:getSimpleName()
 end
 
 function Address:setPointer(address, offset)
-    local value = ""
-
-    self:setAddress(address)
+    self.address = address
     for i = 1, #offset do
-        value = self:readByTypeInteger(3, self:getAddress())
-        value = string.format("%X", value)
-        self:setAddress(value)
-        self:setAddress(self:addValueToAddress(tonumber(offset[i], 16)))
+        local value = self:readByType(3, self.address)
+        if not value or value == 0 then
+            self.address = "0"
+            return
+        end
+        self.address = string.format("%X", value)
+        self.address = self:addValueToAddress(tonumber(offset[i], 16))
     end
 end
 
@@ -63,22 +84,18 @@ function Address:readFieldByIndex(index)
     local typeValue = self.typeValue[index]
     local address = self:addOffsetToAddress(index)
     if typeValue == nil or address == nil then return nil end
-    return self:readByTypeInteger(typeValue, address)
+    return self:readByType(typeValue, address)
 end
 
 function Address.add(hexAddress, valueToAdd)
-    -- 🛡️ Si la dirección base llega como nil o vacía por un error del stack,
-    -- la forzamos a "0" para que 'tonumber' no rompa el mod.
     if hexAddress == nil or hexAddress == "" then
         hexAddress = "0"
     end
-    
-    -- 🛡️ Si el valor a sumar es nil, asumimos que es 0
+
     if valueToAdd == nil then
         valueToAdd = 0
     end
 
-    -- Realizamos la conversión matemática segura
     local baseDecimal = tonumber(hexAddress, 16) or 0
     local sumaDecimal = tonumber(valueToAdd) or 0
 

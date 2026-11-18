@@ -1,6 +1,6 @@
 local Console = _G.Classes.Console
+local ConsoleCommands = _G.Classes.ConsoleCommands
 local ConnectorCentral = _G.Classes.ConnectorCentral
-local GameData = _G.Classes.GameData
 local FormManagerJsonViewer = _G.Classes.FormManagerJsonViewer
 local json = require("json")
 local FormEvents = {}
@@ -27,15 +27,8 @@ function FormEvents.onCmbCommandsChange(formManager)
     local idx = formManager.components.cmbCommands.getItemIndex()
     if idx > 0 then
         local cmd = formManager.components.cmbCommands.getItems().getString(idx)
-
-        if cmd == "clear" then
-            formManager.components.edtCommandInput.Text = ""
-            formManager.components.cmbCommands.setItemIndex(0)
-            Console.system("Command input cleared.")
-        else
-            formManager.components.edtCommandInput.Text = cmd
-            formManager.components.edtCommandInput.setFocus()
-        end
+        formManager.components.edtCommandInput.Text = cmd
+        formManager.components.edtCommandInput.setFocus()
     end
 end
 
@@ -47,37 +40,15 @@ function FormEvents.onEdtCommandInputKeyPress(formManager, key)
             inputCmd = string.sub(inputCmd, 2)
         end
 
-        if inputCmd == "save_game_data" then
-            Console.system("Force saves game data.", "save_game_data")
-            formManager.tmrDataSaver.Enabled = true
-        elseif inputCmd == "view_game_data" then
-            Console.system("View game data.", "view_game_data")
-            ---@diagnostic disable-next-line: undefined-global
-            createThread(function(thread)
-                GameData:updateData()
-                local data = GameData:toTable()
-
-                thread.synchronize(function()
-                    FormEvents.viewData("view_game_data", data)
-                end)
-            end)
-        elseif inputCmd == "view_classnames" then
-            Console.system("View classnames.", "view_classnames")
-            local classNames = {}
-
-            for className, _ in pairs(_G.Classes) do
-                table.insert(classNames, className)
-            end
-
-            FormEvents.viewData("view_classnames", classNames)
-        elseif inputCmd ~= "" then
-            Console.system("Invalid command: " .. inputCmd)
-        end
+        ConsoleCommands.execute(inputCmd, formManager, FormEvents)
 
         formManager.components.edtCommandInput.Text = ""
         formManager.components.cmbCommands.setItemIndex(0)
-        return false
+        return nil -- Evita el sonido "ding" de Windows al pulsar Enter
     end
+
+    -- ¡Indispensable! Devuelve la tecla para que el TextBox la escriba
+    return key
 end
 
 function FormEvents.onBtnSaveClick(formManager)
